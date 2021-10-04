@@ -1,10 +1,6 @@
 package tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.opera.OperaDriver;
 import org.testng.annotations.*;
 import pages.*;
 
@@ -24,13 +20,8 @@ public abstract class BaseTest {
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
     public void setup(@Optional("chrome") String browser) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver(new ChromeOptions().addArguments("headless"));
-        } else if (browser.equalsIgnoreCase("opera")) {
-            WebDriverManager.operadriver().setup();
-            driver = new OperaDriver();
-        }
+        String mvnBrowser = System.getProperty("browser");
+        driver = DriverPusher.push(mvnBrowser);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         catalogPage = new CatalogPage(driver);
@@ -43,7 +34,8 @@ public abstract class BaseTest {
 
     @AfterMethod(alwaysRun = true, groups = "smoke")
     public void tearDown() {
-        driver.quit();
+        if (driver != null)
+            driver.quit();
     }
 
 }
