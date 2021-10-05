@@ -1,5 +1,6 @@
 package tests;
 
+import factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pages.*;
@@ -21,7 +22,7 @@ public abstract class BaseTest {
     @BeforeMethod(groups = "smoke")
     public void setup(@Optional("chrome") String browser) {
         String mvnBrowser = System.getProperty("browser");
-        driver = DriverPusher.push(mvnBrowser);
+        driver = DriverFactory.getDriver(mvnBrowser);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         catalogPage = new CatalogPage(driver);

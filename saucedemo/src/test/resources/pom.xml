@@ -14,7 +14,7 @@
 
         <selenium.version>3.141.59</selenium.version>
         <testNG.version>7.4.0</testNG.version>
-        <webDriverManager>5.0.3</webDriverManager>
+        <WDM.version>5.0.3</WDM.version>
 
         <regressionXmlRun>src/test/java/tests/runners/regression.xml</regressionXmlRun>
         <smokeXmlRun>src/test/java/tests/runners/smoke.xml</smokeXmlRun>
@@ -55,7 +55,7 @@
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
-            <version>${webDriverManager}</version>
+            <version>${WDM.version}</version>
             <scope>test</scope>
         </dependency>
 
