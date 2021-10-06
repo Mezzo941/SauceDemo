@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pages.*;
 
+import javax.xml.datatype.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
@@ -21,9 +22,13 @@ public abstract class BaseTest {
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
     public void setup(@Optional("chrome") String browser) {
-        String mvnBrowser = System.getProperty("browser");
-        driver = DriverFactory.getDriver(mvnBrowser);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            String mvnBrowser = System.getProperty("browser");
+            driver = DriverFactory.getDriver(mvnBrowser);
+        } catch (NullPointerException exception) {
+            driver = DriverFactory.getDriver(browser);
+        }
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         catalogPage = new CatalogPage(driver);
         cartPage = new CartPage(driver);

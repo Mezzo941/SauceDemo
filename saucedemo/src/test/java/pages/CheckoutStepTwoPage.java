@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -26,6 +27,7 @@ public class CheckoutStepTwoPage extends BasePage {
         return Double.parseDouble(driver.findElement(ITEM_TOTAL).getText().substring(13));
     }
 
+    @Step("Click finish button to complete the order")
     public void completeOrder(){
         driver.findElement(FINISH_BUTTON).click();
     }
