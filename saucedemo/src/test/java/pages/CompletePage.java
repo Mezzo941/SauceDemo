@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +14,7 @@ public class CompletePage extends BasePage {
         super(driver);
     }
 
+    @Step("Order has successfully created")
     public boolean isCompleteMsgShow() {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(COMPLETE_MSG));

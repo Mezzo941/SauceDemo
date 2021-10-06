@@ -1,13 +1,11 @@
 package tests;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.opera.OperaDriver;
 import org.testng.annotations.*;
 import pages.*;
 
+import javax.xml.datatype.Duration;
 import java.util.concurrent.TimeUnit;
 
 @Listeners(TestListener.class)
@@ -24,14 +22,13 @@ public abstract class BaseTest {
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
     public void setup(@Optional("chrome") String browser) {
-        if (browser.equalsIgnoreCase("chrome")) {
-            WebDriverManager.chromedriver().setup();
-            driver = new ChromeDriver(new ChromeOptions().addArguments("headless"));
-        } else if (browser.equalsIgnoreCase("opera")) {
-            WebDriverManager.operadriver().setup();
-            driver = new OperaDriver();
+        try {
+            String mvnBrowser = System.getProperty("browser");
+            driver = DriverFactory.getDriver(mvnBrowser);
+        } catch (NullPointerException exception) {
+            driver = DriverFactory.getDriver(browser);
         }
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         catalogPage = new CatalogPage(driver);
         cartPage = new CartPage(driver);
@@ -43,7 +40,8 @@ public abstract class BaseTest {
 
     @AfterMethod(alwaysRun = true, groups = "smoke")
     public void tearDown() {
-        driver.quit();
+        if (driver != null)
+            driver.quit();
     }
 
 }

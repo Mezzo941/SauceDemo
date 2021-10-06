@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -19,19 +20,23 @@ public class CartPage extends BasePage {
         super(driver);
     }
 
+    @Step("Click continue button")
     public void continueShopping() {
         driver.findElement(CONTINUE_BUTTON).click();
     }
 
+    @Step("Click checkout button")
     public void checkout() {
         driver.findElement(CHECK_OUT_BUTTON).click();
     }
 
+    @Step("Try to remove item from the cart")
     public void removeItemFromTheCart(String item) {
         driver.findElement(By.xpath("//*[contains(text(),'" + item + "')]/" +
                 "ancestor::div[@class='cart_item_label']//button")).click();   //почему не находит с 1 слешом перед баттоном если баттон прямо в диве?
     }
 
+    @Step("Check for removed items")
     public boolean isItemRemoved(String item) {
         try {
             new WebDriverWait(driver, 1).until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(text(),'" + item + "')]")));
@@ -41,6 +46,7 @@ public class CartPage extends BasePage {
         return true;
     }
 
+    @Step("Check for cart is empty")
     public boolean isCartEmpty() {
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         List<WebElement> items = driver.findElements(By.xpath("//*[@class='cart_item']"));
