@@ -2,13 +2,14 @@ package tests;
 
 import factory.DriverFactory;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
+import tests.utils.TestListener;
 
-import javax.xml.datatype.Duration;
 import java.util.concurrent.TimeUnit;
 
-@Listeners(TestListener.class)
+@Listeners({TestListener.class})
 public abstract class BaseTest {
 
     protected WebDriver driver;
@@ -21,14 +22,15 @@ public abstract class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
-    public void setup(@Optional("chrome") String browser) {
+    public void setup(@Optional("chrome") String browser, ITestContext context) {
         try {
             String mvnBrowser = System.getProperty("browser");
             driver = DriverFactory.getDriver(mvnBrowser);
         } catch (NullPointerException exception) {
             driver = DriverFactory.getDriver(browser);
         }
-        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        context.setAttribute("driver", driver);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         catalogPage = new CatalogPage(driver);
         cartPage = new CartPage(driver);
@@ -36,7 +38,6 @@ public abstract class BaseTest {
         checkoutStepTwoPage = new CheckoutStepTwoPage(driver);
         completePage = new CompletePage(driver);
     }
-
 
     @AfterMethod(alwaysRun = true, groups = "smoke")
     public void tearDown() {

@@ -3,8 +3,8 @@
 <suite name="regression suite" parallel="tests" thread-count="4">
 
     <listeners>
-        <listener class-name="tests.TestListener"/>
-        <listener class-name="tests.retry.AnnotationTransformer"/>
+        <listener class-name="tests.utils.TestListener"/>
+        <listener class-name="tests.utils.AnnotationTransformer"/>
     </listeners>
 
     <test name="thread1">
