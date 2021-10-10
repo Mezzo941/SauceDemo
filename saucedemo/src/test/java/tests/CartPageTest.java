@@ -3,6 +3,7 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.Items;
+import tests.utils.Retry;
 
 import static pages.Items.*;
 
@@ -43,7 +44,7 @@ public class CartPageTest extends BaseTest {
         Assert.assertTrue(cartPage.isCartEmpty());
     }
 
-    @Test(/*enabled = false , */ description = "try to complete checkout with empty cart")
+    @Test(/*enabled = false , */ description = "try to complete checkout with empty cart", retryAnalyzer = Retry.class)
     public void checkoutWithEmptyCartIsImpossible() {
         loginPage.open();
         loginPage.authorization("standard_user", "secret_sauce");

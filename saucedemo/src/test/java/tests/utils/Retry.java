@@ -1,4 +1,4 @@
-package tests.retry;
+package tests.utils;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
@@ -6,7 +6,7 @@ import org.testng.ITestResult;
 public class Retry implements IRetryAnalyzer {
 
     private int testTry = 0;
-    private int LAST_TEST_TRY = 2;
+    private int LAST_TEST_TRY = 3;
 
     @Override
     public boolean retry(ITestResult result) {

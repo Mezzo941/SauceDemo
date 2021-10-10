@@ -1,5 +1,7 @@
-package tests;
+package tests.utils;
 
+import factory.ScreenshotFactory;
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -20,6 +22,7 @@ public class TestListener implements ITestListener {
 
     @Override
     public void onTestFailure(ITestResult iTestResult) {
+        ScreenshotFactory.getScreen((WebDriver) iTestResult.getTestContext().getAttribute("driver"));
         System.out.printf("======================================== FAILED TEST %s Duration: %ss ========================================%n", iTestResult.getName(),
                 getExecutionTime(iTestResult));
     }
