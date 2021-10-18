@@ -34,7 +34,7 @@ public class CheckoutStepTwoPageTest extends BaseTest {
         Assert.assertEquals(total, checkoutStepTwoPage.getTotal());
     }
 
-    @Test(description = "check correct tax that calculated from summed by all items prices before final checkout")
+    @Test(enabled = false, description = "check correct tax that calculated from summed by all items prices before final checkout")
     public void isTaxCorrect() {
         Items[] threeRandomItemsArray = {SAUCE_LABS_BACKPACK, SAUCE_LABS_BIKE_LIGHT, SAUCE_LABS_BOLT_TSHIRT};
         loginPage.open();
