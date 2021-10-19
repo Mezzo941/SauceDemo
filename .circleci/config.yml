@@ -6,7 +6,7 @@
   orbs:
     browser-tools: circleci/browser-tools@1.2.1
   jobs:
-    ui-tests:
+    regression_tests:
       docker:
         - image: cimg/openjdk:11.0-browsers
       steps:
@@ -39,14 +39,14 @@
     version: 2
     commit:
       jobs:
-        - ui-tests
+        - regression_tests
     periodical:
       triggers:
         - schedule:
-            cron: "1 8 * * *"
+            cron: "0 1 * * *"
             filters:
               branches:
                 only:
                   - master
       jobs:
-        - ui-tests
+        - regression_tests

@@ -23,7 +23,7 @@ public abstract class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
-    public void setup(@Optional("opera") String browser, ITestContext context) {
+    public void setup(@Optional("chrome") String browser, ITestContext context) {
         try {
             String mvnBrowser = System.getProperty("browser");
             driver = DriverFactory.getDriver(mvnBrowser);
