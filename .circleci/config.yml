@@ -3,8 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 # https://circleci.com/docs/2.0/browser-testing/#selenium
 version: 2
+
 jobs:
   ui-tests:
+    orbs:
+      browser-tools: circleci/browser-tools@x.y
     docker:
       - image: cimg/openjdk:8.0.302-browsers
     steps:
