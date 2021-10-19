@@ -9,7 +9,7 @@ jobs:
     orbs:
       browser-tools: circleci/browser-tools@x.y
     docker:
-      - image: cimg/openjdk:8.0.302-browsers
+      - image: citcleci/openjdk:11-boot:2.8.3-browsers"
     steps:
       - checkout #clone git repo
       - restore_cache:
