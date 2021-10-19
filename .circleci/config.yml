@@ -6,7 +6,7 @@ version: 2
 jobs:
   ui-tests:
     docker:
-      - image: circleci/openjdk-8-browsers
+      - image: cimg/openjdk:8.0.302-browsers
     steps:
       - checkout #clone git repo
       - restore_cache:
