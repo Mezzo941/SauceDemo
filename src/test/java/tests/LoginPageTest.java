@@ -9,23 +9,23 @@ public class LoginPageTest extends BaseTest {
     @DataProvider(name = "noValidData")
     public Object[][] getData() {
         return new Object[][]{
-                {"standard_user", "", "Epic sadface: Password is required"},
+                {USER, "", "Epic sadface: Password is required"},
                 {"", "", "Epic sadface: Username is required"},
-                {"standard_user", "standard_user", "Epic sadface: Username and password do not match any user in this service"},
+                {USER, USER, "Epic sadface: Username and password do not match any user in this service"},
         };
     }
 
     @Test(description = "use valid data for login")
     public void ValidDataUserSuccessfulLogin() {
         loginPage.open();
-        loginPage.authorization("standard_user", "secret_sauce");
+        loginPage.authorization(USER, PASS);
         Assert.assertTrue(catalogPage.isOpened());
     }
 
     @Test(description = "use data of the blocked user for login")
     public void lockedUserCantLogin() {
         loginPage.open();
-        loginPage.authorization("locked_out_user", "secret_sauce");
+        loginPage.authorization(LOCKED_USER, PASS);
         Assert.assertEquals(loginPage.getDynamicError(), "Epic sadface: Sorry, this user has been locked out.");
     }
 

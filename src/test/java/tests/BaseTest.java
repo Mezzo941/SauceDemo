@@ -6,12 +6,17 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.annotations.*;
 import pages.*;
+import tests.utils.PropertyReader;
 import tests.utils.TestListener;
 
 import java.util.concurrent.TimeUnit;
 
 @Listeners({TestListener.class})
 public abstract class BaseTest {
+
+    protected final String USER = System.getenv().getOrDefault("SD_USER", PropertyReader.getProperty("sd.user"));
+    protected final String LOCKED_USER = System.getenv().getOrDefault("SD_LOCKED_USER", PropertyReader.getProperty("sd.locked.user"));
+    protected final String PASS = System.getenv().getOrDefault("SD_PASS", PropertyReader.getProperty("sd.pass"));
 
     protected WebDriver driver;
     protected LoginPage loginPage;
@@ -23,7 +28,7 @@ public abstract class BaseTest {
 
     @Parameters("browser")
     @BeforeMethod(groups = "smoke")
-    public void setup(@Optional("opera") String browser, ITestContext context) {
+    public void setup(@Optional("chrome") String browser, ITestContext context) {
         try {
             String mvnBrowser = System.getProperty("browser");
             driver = DriverFactory.getDriver(mvnBrowser);
