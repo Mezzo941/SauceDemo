@@ -3,4 +3,4 @@
 /.idea/
 /target/
 /.allure/
-/src/test/resources/config.properties
+/src/test/resources/config.git.properties
