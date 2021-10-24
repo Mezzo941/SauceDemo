@@ -44,7 +44,7 @@ public class CartPageTest extends BaseTest {
         Assert.assertTrue(cartPage.isCartEmpty());
     }
 
-    @Test(enabled = false, description = "try to complete checkout with empty cart", retryAnalyzer = Retry.class)
+    @Test(description = "try to complete checkout with empty cart", retryAnalyzer = Retry.class)
     public void checkoutWithEmptyCartIsImpossible() {
         loginPage.open();
         loginPage.authorization("standard_user", "secret_sauce");
