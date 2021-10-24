@@ -20,19 +20,15 @@ pipeline {
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
-            }
-        }
-
-        stage('Allure-reporting') {
-            steps {
-                script {
-                    allure( [
+                always {
+                    script {
+                        allure([
                         includeProperties: false,
                         jdk: '',
                         properties: [],
-                        reportBuildPolicy: ALWAYS,
                         results: [[path: 'target/allure-results']]
-                    ])
+                        ])
+                    }
                 }
             }
         }
