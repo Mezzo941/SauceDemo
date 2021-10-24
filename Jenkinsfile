@@ -23,6 +23,9 @@ pipeline {
             }
         }
 
+
+
+
         stage('Allure-reporting') {
             steps {
                 script {
@@ -30,15 +33,11 @@ pipeline {
                         includeProperties: false,
                         jdk: '',
                         properties: [],
-                        reportBuildPolicy: 'ALWAYS',
+                        reportBuildPolicy: ALWAYS,
                         results: [[path: 'target/allure-results']]
                     ])
                 }
             }
         }
     }
-    post {
-            always {
-                allure results: [[path: 'build/test-results/test']]
-            }
 }
